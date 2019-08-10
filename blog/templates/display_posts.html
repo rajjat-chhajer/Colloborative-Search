@@ -1,0 +1,22 @@
+  <ul class="posts">
+  {% for row in posts %}
+    <li>
+        {% if request.path == "/" %}
+        <b> <a href="{{ url_for('profile', username=row.username) }}">{{ row.username }}</a> </b>
+        {% endif %}
+    	on {{ row.post.date }} <br>
+	<b>Question :</b> {{ row.post.text }}
+    	<a href="{{ url_for('show_answers', post_id=row.post.id) }}">View Answers</a><br>
+    	<b>Tags :</b> <i>{{ ", ".join(row.tags) }}</i><br>
+    	
+	<form action="{{ url_for('show_post',post_id=row.post.id) }}" method="post">
+        <dl>
+            <dt>Reply:</dt>
+            <dd><input type="text" name="reply"></dd>
+        </dl>
+        <input type="submit" value="Post">
+	</form>
+  {% else %}
+    <li>There aren't any posts yet!
+  {% endfor %}
+  </ul>

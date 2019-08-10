@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h2>Home</h2>
+  <form action="{{ url_for('search_posts') }}" method="post"> 
+     <dl>
+            <dt>Tags:</dt>
+            <dd><input type="text" size="30" name="tag"></dd>
+     </dl>
+     <input type="submit" value="Search">
+  </form>
+
+  {% if session.username %}
+    <h3>Post your question</h3>
+    <form action="{{ url_for('add_post') }}" method="post">
+        <dl>
+            <dt>Title:</dt>
+            <dd><input type="text" size="30" name="title"></dd>
+            <dt>Tags (separated by commas):</dt>
+            <dd><input type="text" size="30" name="tags"></dd>
+            <dt>Text:</dt>
+            <dd><textarea name="text" rows="5" cols="40"></textarea></dd>
+        </dl>
+        <input type="submit" value="Share">
+    </form>
+  {% endif %}
+
+<br>
+
+<h3>Recent Questions</h3>
+{% include "display_posts.html" %}
+
+{% endblock %}
